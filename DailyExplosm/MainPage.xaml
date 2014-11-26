@@ -1,0 +1,274 @@
+﻿<phone:PhoneApplicationPage OrientationChanged="PhoneApplicationPage_OrientationChanged"
+    x:Class="DailyExplosm.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+    <phone:PhoneApplicationPage.Resources>
+
+        <Storyboard x:Name="ShowDrawer">
+            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="InfoPanel" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <PowerEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="imgHeader">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-241"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="border">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-241"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="loaderBrowser">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-241"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="border1">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-241"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut" Amplitude="0.5"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="comicName">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="-240"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Name="HideDrawer">
+            <DoubleAnimation Duration="0:0:0.3" To="-320" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="InfoPanel" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <PowerEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationZ)" Storyboard.TargetName="comicBrowser" d:IsOptimized="True"/>
+        </Storyboard>
+
+        <Storyboard x:Name="LandscapeAnim">
+            <DoubleAnimation Duration="0:0:0.3" To="-500" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="InfoPanel" d:IsOptimized="True">
+                <DoubleAnimation.EasingFunction>
+                    <PowerEase EasingMode="EaseIn"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Name="TapAnim">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.LocalOffsetZ)">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-300">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuinticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ElasticEase EasingMode="EaseOut" Springiness="0.4" Oscillations="1"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Name="RandomIconAnimate">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationZ)" Storyboard.TargetName="imgRandom">
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="720">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <SineEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <DiscreteDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Name="LoadingAnim" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.GlobalOffsetY)" Storyboard.TargetName="image">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-12"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BounceEase EasingMode="EaseOut" Bounciness="3"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0.0001"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--Application bar-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1">
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/download.png" Text="save" Click="SaveComic"/>
+            <shell:ApplicationBarIconButton IconUri="/Assets/AppBar/share.png" Text="share" Click="ShareComic"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="browse by Kris" Click="BrowseByKris"/>
+                <shell:ApplicationBarMenuItem Text="browse by Dave" Click="BrowseByDave"/>
+                <shell:ApplicationBarMenuItem Text="browse by Matt" Click="BrowseByMatt"/>
+                <shell:ApplicationBarMenuItem Text="browse by Rob" Click="BrowseByRob"/>
+                <shell:ApplicationBarMenuItem Text="history" Click="GoToHistory"/>
+                <shell:ApplicationBarMenuItem Text="about" Click="AboutPage"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" >
+
+        <Grid x:Name="InfoPanel" Background="#21242B" Canvas.ZIndex="2" Height="400" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5">
+
+            <Grid.RenderTransform>
+                <CompositeTransform TranslateY="-320"/>
+            </Grid.RenderTransform>
+
+            <Image x:Name="imgHeader" Height="150" VerticalAlignment="Top" Source="/Assets/Images/no_header.jpg" Stretch="UniformToFill" Opacity=".5" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <CompositeTransform/>
+                </Image.RenderTransform>
+            </Image>
+
+            <Border x:Name="border" BorderBrush="#F7990D" BorderThickness="2" Visibility="Visible"
+                    Height="150" Width="150" 
+                    HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12,0,0,100" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <CompositeTransform/>
+                </Border.RenderTransform>
+                <Image x:Name="imgAuthor" Source="/Assets/Images/no_author.png" Stretch="UniformToFill"/>
+            </Border>
+
+            <TextBlock x:Name="tblockBrowsing" TextAlignment="Center" TextWrapping="Wrap" FontSize="13" Text="browsing c&amp;h comics" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,100,0,0" FontFamily="Comic Sans MS"/>
+
+            <phone:WebBrowser x:Name="loaderBrowser" Height="128" Width="146" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14,77,0,195" Visibility="Collapsed" IsHitTestVisible="False">
+                <phone:WebBrowser.RenderTransform>
+                    <CompositeTransform/>
+                </phone:WebBrowser.RenderTransform>
+            </phone:WebBrowser>
+
+            <Border x:Name="border1" HorizontalAlignment="Left" VerticalAlignment="Center"
+                     Margin="14,27,0,0" Background="Gray" Width="146" Canvas.ZIndex="2" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <CompositeTransform/>
+                </Border.RenderTransform>
+                <TextBlock x:Name="tblockAuthorName" Margin="12,0,0,0" Text="hold on..." FontSize="14" Width="130" FontFamily="Comic Sans MS"/>
+            </Border>
+
+            <TextBlock x:Name="comicName" Text="loading comic name..."  TextWrapping="Wrap"
+                       FontSize="18" FontFamily="/Assets/Fonts/digistrip.ttf #DigitalStrip" 
+                       HorizontalAlignment="Right" VerticalAlignment="Center" Margin="100,20,12,0" Height="100" Width="290" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <CompositeTransform/>
+                </TextBlock.RenderTransform>
+            </TextBlock>
+
+            <Grid x:Name="ButtonPanel" VerticalAlignment="Bottom">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image x:Name="imgFirst" Grid.Column="0" Height="60" Source="/Assets/Images/far_left.png" Opacity=".6" RenderTransformOrigin="0.5,0.5" Tap="FirstComic">
+                    <Image.RenderTransform>
+                        <CompositeTransform/>
+                    </Image.RenderTransform>
+                    <Image.Projection>
+                        <PlaneProjection/>
+                    </Image.Projection>
+                </Image>
+                <Image x:Name="imgPrev" Grid.Column="1" Height="60" Source="/Assets/Images/left.png" Opacity=".6" RenderTransformOrigin="0.5,0.5" Tap="PreviousComic">
+                    <Image.RenderTransform>
+                        <CompositeTransform/>
+                    </Image.RenderTransform>
+                    <Image.Projection>
+                        <PlaneProjection/>
+                    </Image.Projection>
+                </Image>
+                <Image x:Name="imgRandom" Grid.Column="2" Height="80" Source="/Assets/Images/header_logo.png" Canvas.ZIndex="2" Tap="LoadRandom">
+                    <Image.RenderTransform>
+                        <CompositeTransform/>
+                    </Image.RenderTransform>
+                    <Image.Projection>
+                        <PlaneProjection/>
+                    </Image.Projection>
+                </Image>
+                <Image x:Name="imgNext" Grid.Column="3" Height="60" Source="/Assets/Images/right.png" Opacity=".6" RenderTransformOrigin="0.5,0.5" Tap="NextComic">
+                    <Image.RenderTransform>
+                        <CompositeTransform/>
+                    </Image.RenderTransform>
+                    <Image.Projection>
+                        <PlaneProjection/>
+                    </Image.Projection>
+                </Image>
+                <Image x:Name="imgLast" Grid.Column="4" Height="60" Source="/Assets/Images/far_right.png" Opacity=".6" RenderTransformOrigin="0.5,0.5" Tap="LatestComic">
+                    <Image.RenderTransform>
+                        <CompositeTransform/>
+                    </Image.RenderTransform>
+                    <Image.Projection>
+                        <PlaneProjection/>
+                    </Image.Projection>
+                </Image>
+
+                <Border Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom" Width="150" Margin="0,0,0,-55" Background="#21242B" CornerRadius="0,0,4,4" ManipulationCompleted="DrawerDrag" Tap="Border_Tap">
+                    <StackPanel Height="70">
+                        <Image x:Name="image" Source="/Assets/Images/explosm_logo.png" Margin="0,10,0,0">
+                            <Image.Projection>
+                                <PlaneProjection/>
+                            </Image.Projection>
+                        </Image>
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+
+        <Grid x:Name="ComicPanel" Background="White" RenderTransformOrigin="0.5,0.5">
+
+            <Grid.Projection>
+                <PlaneProjection/>
+            </Grid.Projection>
+
+            <TextBlock x:Name="comicDate" Text="" Foreground="Gray" 
+                       FontFamily="/Assets/Fonts/digistrip.ttf #DigitalStrip" 
+                       Margin="0,90,12,0" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+            <TextBlock x:Name="comicNumber" Text="" Foreground="Gray"
+                       FontFamily="/Assets/Fonts/digistrip.ttf #DigitalStrip" 
+                       Margin="12,90,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+            <phone:WebBrowser x:Name="comicBrowser" Margin="12,140,12,0" RenderTransformOrigin="0.5,0.5" IsScriptEnabled="True">
+                <phone:WebBrowser.Projection>
+                    <PlaneProjection/>
+                </phone:WebBrowser.Projection>
+            </phone:WebBrowser>
+
+        </Grid>
+
+    </Grid>
+
+</phone:PhoneApplicationPage>
